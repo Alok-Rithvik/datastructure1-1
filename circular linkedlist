@@ -1,0 +1,111 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+}*start=NULL;
+void create()
+{
+    struct node *new=(struct node *)malloc(sizeof(struct node));
+    printf("enter the value for the node\n");
+    scanf("%d",&new->data);
+    if(start==NULL)
+    {
+        start=new;
+        start->next=start;
+    }
+    else
+    {
+        struct node *temp=start;
+        while(temp->next!=start)
+        {
+            temp=temp->next;
+        }
+        temp->next=new;
+        new->next=start;
+    }
+}
+void display()
+{
+    struct node *temp;
+    if(start==NULL)
+    {
+        printf("\nList is empty:\n");
+    }    
+    else
+    {
+        printf("The list elements:\n");
+        temp=start;
+        do
+        {
+            printf("%d\t",temp->data);
+            temp=temp->next;
+        }while(temp!=start);
+    }
+}
+void insert_beg()
+{
+    struct node *temp;
+    struct node *new=(struct node *)malloc(sizeof(struct node));
+    printf("enter the value for the node\n");
+    scanf("%d",&new->data);
+    temp=start;
+    while(temp->next!=start)
+    {
+        temp=temp->next;
+    }
+    temp->next=new;
+    new->next=start;
+    start=new;
+}
+void delete_start()
+{
+    struct node *temp,*t;
+    temp=t=start;
+    while(temp->next!=start)
+    {
+        temp=temp->next;
+    }
+    start=start->next;
+    temp->next=start;
+    free(t);
+}
+void delete_end()
+{
+    struct node *t1,*t2;
+    t1=t2=start;
+    while(t2->next!=start)
+    {
+        t1=t2;
+        t2=t2->next;
+    }
+    t1->next=start;
+    free(t2);
+}
+int main()
+{
+    int ch;
+    while(1)
+    {
+        printf("\n 1- create a list \n 2- display the list \n 3- insert at the beginning \n 4- delete from the start\n 5- delete from the end\n 6- exit from the menu driven\n");
+        printf("enter the choice\n");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:create();
+                    break;
+            case 2:display();
+                    break;
+            case 3:insert_beg();
+                    break;
+            case 4:delete_start();
+                    break;
+            case 5:delete_end();
+                    break;
+            case 6:exit(0);
+                    break;
+            default:printf("wrong choice entered\n");
+        }
+    }
+}
